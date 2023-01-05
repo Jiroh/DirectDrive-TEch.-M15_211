@@ -29,7 +29,7 @@ void messageCb(const geometry_msgs::Twist& twist) {
   const float speed_ang = twist.angular.z;
   const float speed_lin = twist.linear.x;
   w_r = (speed_lin/wheel_rad) + ((speed_ang*wheel_sep)/(2.0*wheel_rad));
-  w_l = (speed_lin/wheel_rad) - ((speed_ang*wheel_sep)/(2.0*wheel_rad));
+  w_l = ((speed_ang*wheel_sep)/(2.0*wheel_rad))-(speed_lin/wheel_rad);
 }
 
 ros::NodeHandle nh;
@@ -99,7 +99,6 @@ void setup() {
   mcp2515.sendMessage(&canMsg4);
   mcp2515.sendMessage(&canMsg5);
   mcp2515.sendMessage(&canMsg6);
-  mcp2515.sendMessage(&canMsg7);
 
   nh.getHardware()->setBaud(115200);
   nh.initNode();
